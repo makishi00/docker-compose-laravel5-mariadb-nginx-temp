@@ -1,0 +1,16 @@
+#
+# Compose file version 3 reference: https://docs.docker.com/compose/compose-file/
+#
+version: '3.1'
+
+services:
+
+  # Composer
+  composer:
+    image: composer
+    command: install --ignore-platform-reqs ${COMPOSER_OPTS:-}
+    volumes:
+      - .:/app
+    networks:
+      - front
+    restart: 'no'

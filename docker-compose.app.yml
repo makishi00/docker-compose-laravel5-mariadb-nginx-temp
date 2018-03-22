@@ -1,0 +1,23 @@
+#
+# Compose file version 3 reference: https://docs.docker.com/compose/compose-file/
+#
+version: '3.1'
+
+# external (shared) web
+# external (shared) database
+# own network
+
+services:
+
+  # php-fpm
+  app:
+    build: ./docker/app
+    volumes:
+      - .:/var/www/html
+    extra_hosts:
+      - "db:${APP_DB_HOST}"
+    ports:
+      - "${APP_PORT:-9000}:9000"
+    restart: always
+    env_file:
+      - "./config/env.${APP_ENV:-development}"
